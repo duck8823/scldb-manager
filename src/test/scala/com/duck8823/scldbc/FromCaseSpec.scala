@@ -6,6 +6,7 @@ import com.duck8823.scldbc.Operator.EQUAL
 import org.scalatest.{FlatSpec, Matchers}
 
 
+case class TestFromCase(id:Int, name:String)
 /**
 	* Created by maeda on 9/11/2016.
 	*/
@@ -13,14 +14,14 @@ class FromCaseSpec extends FlatSpec with Matchers {
 	val manager = Scldbc.connect(SQLite3, "test.db")
 
 	"list result" should "correct" in {
-		manager.drop[Test].execute()
-		manager.create[Test].execute()
+		manager.drop[TestFromCase].execute()
+		manager.create[TestFromCase].execute()
 
-		manager.insert(Test(1, "name_1")).execute()
-		manager.insert(Test(2, "name_2")).execute()
+		manager.insert(TestFromCase(1, "name_1")).execute()
+		manager.insert(TestFromCase(2, "name_2")).execute()
 
-		val actual = manager.from[Test].list()
-		val expect = List(Test(1, "name_1"), Test(2, "name_2"))
+		val actual = manager.from[TestFromCase].list()
+		val expect = List(TestFromCase(1, "name_1"), TestFromCase(2, "name_2"))
 
 		assertResult(expect)(actual)
 
@@ -31,35 +32,35 @@ class FromCaseSpec extends FlatSpec with Matchers {
 	}
 
 	"singleResult" should "correct" in {
-		manager.drop[Test].execute()
-		manager.create[Test].execute()
+		manager.drop[TestFromCase].execute()
+		manager.create[TestFromCase].execute()
 
-		manager.insert(Test(1, "name_1")).execute()
-		manager.insert(Test(2, "name_2")).execute()
+		manager.insert(TestFromCase(1, "name_1")).execute()
+		manager.insert(TestFromCase(2, "name_2")).execute()
 
-		val actual = manager.from[Test].where(new Where("id", 1, EQUAL)).singleResult()
-		val expect = Test(1, "name_1")
+		val actual = manager.from[TestFromCase].where(new Where("id", 1, EQUAL)).singleResult()
+		val expect = TestFromCase(1, "name_1")
 		assertResult(expect)(actual)
 
 		a [IllegalStateException] should be thrownBy {
-			manager.from[Test].where(new Where("id", Array[Byte](), EQUAL)).singleResult()
+			manager.from[TestFromCase].where(new Where("id", Array[Byte](), EQUAL)).singleResult()
 		}
 
 		a [IllegalStateException] should be thrownBy {
-			manager.from[Test].singleResult()
+			manager.from[TestFromCase].singleResult()
 		}
 	}
 
 	"delete result" should "correct" in {
-		manager.drop[Test].execute()
-		manager.create[Test].execute()
+		manager.drop[TestFromCase].execute()
+		manager.create[TestFromCase].execute()
 
-		manager.insert(Test(1, "name_1")).execute()
-		manager.insert(Test(2, "name_2")).execute()
+		manager.insert(TestFromCase(1, "name_1")).execute()
+		manager.insert(TestFromCase(2, "name_2")).execute()
 
-		manager.from[Test].where(new Where("id", 1, EQUAL)).delete().execute()
-		val actual = manager.from[Test].singleResult()
-		val expect = Test(2, "name_2")
+		manager.from[TestFromCase].where(new Where("id", 1, EQUAL)).delete().execute()
+		val actual = manager.from[TestFromCase].singleResult()
+		val expect = TestFromCase(2, "name_2")
 
 		assertResult(expect)(actual)
 	}

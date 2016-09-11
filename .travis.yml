@@ -1,0 +1,15 @@
+language: scala
+services:
+ - postgresql
+addons:
+ postgresql: "9.4"
+scala:
+ - 2.11.2
+before_script:
+ - psql -c 'create database test;' -U postgres
+script:
+ - jdk_switcher use oraclejdk8
+ - sbt clean coverage test coverageReport &&
+   sbt coverageAggregate
+after_success:
+ - sbt coveralls

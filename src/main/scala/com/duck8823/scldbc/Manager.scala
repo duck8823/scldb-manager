@@ -17,6 +17,7 @@ class Manager(driver:Driver, datasource:String, user:String, password: String) {
 	private val ds = new HikariDataSource()
 	ds.setJdbcUrl("jdbc:%s:%s".format(driver.name, datasource))
 	ds.setDriverClassName(driver.clazz.getName)
+	ds.setAutoCommit(true)
 	if (user != null) ds.setUsername(user)
 	if (password != null) ds.setPassword(password)
 	private val db = new DBI(ds).open()

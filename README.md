@@ -1,6 +1,6 @@
 # ScldbcManager
 [![Build Status](https://travis-ci.org/duck8823/scldbc-manager.svg?branch=master)](https://travis-ci.org/duck8823/scldbc-manager)
-[![Coverage Status](http://coveralls.io/repos/github/duck8823/scldbc-manager/badge.svg?branch=master)](https://coveralls.io/github/duck8823/scldbc-manager?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/duck8823/scldbc-manager/badge.svg?branch=master)](https://coveralls.io/github/duck8823/scldbc-manager?branch=master)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)  
 
 case classでデータベースを操作する
